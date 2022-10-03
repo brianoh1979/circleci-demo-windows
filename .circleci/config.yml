@@ -11,7 +11,9 @@ jobs:
     resource_class: brianoh1979/brian-winrunner
     steps:
       - checkout
-      - run: $env:brian
+      - run: 
+         command: $env:brian
+         shell: powershell.exe
       - restore_cache:
           keys:
             - dotnet-packages-v1-{{ checksum "circleci-demo-windows.csproj" }}
