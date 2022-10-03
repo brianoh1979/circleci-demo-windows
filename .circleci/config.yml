@@ -12,7 +12,7 @@ jobs:
       shell: powershell.exe
     steps:
       - checkout
-      - run: echo %brian%
+      - run: $env:brian
       - restore_cache:
           keys:
             - dotnet-packages-v1-{{ checksum "circleci-demo-windows.csproj" }}
