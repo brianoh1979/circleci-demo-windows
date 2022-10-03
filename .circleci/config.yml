@@ -1,7 +1,5 @@
 version: 2.1
 
-#Adding comment
-
 orbs:
   win: circleci/windows@1.0.0
 
