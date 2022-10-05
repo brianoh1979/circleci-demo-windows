@@ -23,7 +23,7 @@ jobs:
               fi
 
               # known_hosts
-              mkdir -p ~/.ssh
+              cmd.exe /c mkdir -p ~/.ssh
               if [ -x "$(command -v ssh-keyscan)" ] && ([ "${keyscan_github}" == "true" ] || [ "${keyscan_bitbucket}" == "true" ])
               then
                 if [ "${keyscan_github}" == "true" ]
