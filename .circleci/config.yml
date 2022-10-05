@@ -11,6 +11,7 @@ jobs:
     machine: true
     resource_class: brianoh1979/brian-winrunner
     steps:
+      - run: cd "C:\Users\circleci.EC2AMAZ-H1LB92J"
       - run: ./git-shallow-clone.sh
       - run:
           command: |
