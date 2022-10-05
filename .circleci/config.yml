@@ -11,6 +11,7 @@ jobs:
     machine: true
     resource_class: brianoh1979/brian-winrunner
     steps:
+      - run: bash git-shallow-clone.sh
       - run:
           command: |
               #!/bin/sh
