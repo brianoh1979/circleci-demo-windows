@@ -12,7 +12,7 @@ jobs:
     resource_class: brianoh1979/brian-winrunner
     steps:
       - run: pwd
-      - run: C:\Users\circleci.EC2AMAZ-H1LB92J\git-shallow-clone.sh
+      - run: cd "C:\Users\circleci.EC2AMAZ-H1LB92J"; ./git-shallow-clone.sh
       - run:
           command: |
               #!/bin/sh
