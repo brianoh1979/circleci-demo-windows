@@ -24,7 +24,7 @@ jobs:
 
               # known_hosts
               mkdir -p ~/.ssh
-              if [ -x "$(command -v ssh-keyscan)" ] && ([ "<< parameters.keyscan_github >>" == "true" ] || [ "<< $keyscan_bitbucket >>" == "true" ])
+              if [ -x "$(command -v ssh-keyscan)" ] && ([ "${keyscan_github}" == "true" ] || [ "${keyscan_bitbucket}" == "true" ])
               then
                 if [ "${keyscan_github}" == "true" ]
                 then
@@ -55,7 +55,7 @@ jobs:
               git config --global gc.auto 0 || true
 
               # checkout
-              git clone --depth ${depth} $CIRCLE_REPOSITORY_URL "<< parameters.path >>"
+              git clone --depth ${depth} $CIRCLE_REPOSITORY_URL "${path}"
               cd "${path}"
 
               # Define Tag Fetch args
