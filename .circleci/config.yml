@@ -12,7 +12,7 @@ jobs:
     resource_class: brianoh1979/brian-winrunner
     steps:
       - run:
-         command: |
+          command: |
               #!/bin/sh
               set -ex
               # Workaround old docker images with incorrect $HOME
@@ -95,7 +95,7 @@ jobs:
                fi
 
                git reset --hard "$CIRCLE_SHA1"
-         shell: bash.exe
+          shell: bash.exe
       - run: 
          command: $env:brian
          shell: powershell.exe
