@@ -11,11 +11,14 @@ jobs:
     machine: true
     resource_class: brianoh1979/brian-winrunner
     steps:
-      - run: pwd
+      - run:
+         command: $env:brian
+         shell: powershell.exe
       - run:
           name: Install gh-cli
           command: |
             choco install gh #https://github.com/cli/cli#windows
+          shell: powershell.exe
       - run:
           name: Authenticate gh and clone
           command: |
@@ -29,6 +32,7 @@ jobs:
             gh config set prompt disabled
 
             gh repo clone brianoh1979/circleci-demo-macos .
+          shell: powershell.exe
       - run: systeminfo
       - run: ls
       - run: cd "C:\Users\circleci.EC2AMAZ-H1LB92J"; ./git-shallow-clone.sh
