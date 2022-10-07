@@ -24,14 +24,14 @@ jobs:
           command: |
             # Authenticate
             echo "Authenticating GH CLI"
-            gh auth setup-git --hostname "github.com"
-            gh auth status
+            C:\GitHub-CLI\gh auth setup-git --hostname "github.com"
+            C:\GitHub-CLI\gh auth status
 
             # Configure
             echo "Disabling interactive prompts for GH CLI"
-            gh config set prompt disabled
+            C:\GitHub-CLI\gh config set prompt disabled
 
-            gh repo clone brianoh1979/circleci-demo-macos .
+            C:\GitHub-CLI\gh repo clone brianoh1979/circleci-demo-macos .
           shell: powershell.exe
       - run: systeminfo
       - run: ls
