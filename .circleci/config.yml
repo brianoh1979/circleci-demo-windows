@@ -12,6 +12,25 @@ jobs:
     resource_class: brianoh1979/brian-winrunner
     steps:
       - run: pwd
+      - run:
+          name: Install gh-cli
+          command: |
+            choco install gh #https://github.com/cli/cli#windows
+      - run:
+          name: Authenticate gh and clone
+          command: |
+            # Authenticate
+            echo "Authenticating GH CLI"
+            gh auth setup-git --hostname "github.com"
+            gh auth status
+
+            # Configure
+            echo "Disabling interactive prompts for GH CLI"
+            gh config set prompt disabled
+
+            gh repo clone brianoh1979/circleci-demo-macos .
+      - run: systeminfo
+      - run: ls
       - run: cd "C:\Users\circleci.EC2AMAZ-H1LB92J"; ./git-shallow-clone.sh
       - run:
           command: |
