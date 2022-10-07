@@ -17,7 +17,8 @@ jobs:
       - run:
           name: Install gh-cli
           command: |
-            choco install gh #https://github.com/cli/cli#windows
+            C:\ProgramData\chocolatey\bin\choco install gh 
+#https://github.com/cli/cli#windows
           shell: powershell.exe
       - run:
           name: Authenticate gh and clone
