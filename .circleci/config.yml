@@ -32,7 +32,8 @@ jobs:
           shell: powershell.exe
       - run:
           name: Demonstrate that we only have 2 commits
-          command: C:\Git\bin\git\git log -5
+          command: C:\Git\bin\git log -5
+          shell: powershell.exe
  #     - run: cd "C:\Users\circleci.EC2AMAZ-H1LB92J"; ./git-shallow-clone.sh
  #     - run: 
  #        command: $env:brian
