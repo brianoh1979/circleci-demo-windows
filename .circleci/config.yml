@@ -12,12 +12,12 @@ jobs:
       name: win/vs2019
       shell: powershell.exe
     steps:
-   #   - checkout
-      - run:
-          name: Checkout code (Windows)
-          command: |
-            git clone --depth 1 $env:CIRCLE_REPOSITORY_URL .
-            windows: true
+      - checkout
+ #     - run:
+ #         name: Checkout code (Windows)
+ #         command: |
+ #           git clone --depth 1 $env:CIRCLE_REPOSITORY_URL .
+ #           windows: true
       - run: $env:brian
       - restore_cache:
           keys:
