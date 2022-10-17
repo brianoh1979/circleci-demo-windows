@@ -17,6 +17,7 @@ jobs:
           command: |
             ssh-keyscan -H github.com >> C:\users\circleci\.ssh\known_hosts
             git clone --depth 1 $env:CIRCLE_REPOSITORY_URL .
+          shell: bash.exe
       - run: $env:brian
       - restore_cache:
           keys:
