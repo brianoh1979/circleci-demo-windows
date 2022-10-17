@@ -4,6 +4,7 @@ version: 2.1
 
 orbs:
   win: circleci/windows@1.0.0
+  git-shallow-clone: guitarrapc/git-shallow-clone@2.4.0
 
 jobs:
   build:
@@ -11,6 +12,9 @@ jobs:
       name: win/vs2019
       shell: powershell.exe
     steps:
+      - git-shallow-clone/checkout:
+         fetch_depth: 1
+         windows: true
    #   - checkout
       - run:
           name: Checkout code (Windows)
