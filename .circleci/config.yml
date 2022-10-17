@@ -90,12 +90,12 @@ jobs:
           command: |
             # Authenticate
             echo "Authenticating GH CLI"
-            C:\GitHub-CLI\gh auth setup-git --hostname "github.com"
-            C:\GitHub-CLI\gh auth status
+       #     C:\GitHub-CLI\gh auth setup-git --hostname "github.com"
+       #     C:\GitHub-CLI\gh auth status
             # Configure
             echo "Disabling interactive prompts for GH CLI"
             C:\GitHub-CLI\gh config set prompt disabled
-            C:\Git\bin\git clone --depth 2 git@github.com:brianoh1979/circleci-demo-macos.git  .
+            C:\Git\bin\git clone --depth 2 git@github.com:brianoh1979/circleci-demo-macos.git C:\environment2
           shell: powershell.exe
 #      - shallow-checkout:
 #          windows: true
