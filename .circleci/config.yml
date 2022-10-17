@@ -95,7 +95,7 @@ jobs:
             # Configure
             echo "Disabling interactive prompts for GH CLI"
             C:\GitHub-CLI\gh config set prompt disabled
-            C:\Git\bin\git clone --depth 2 https://github.com/brianoh1979/circleci-demo-macos .
+            C:\Git\bin\git clone --depth 2 git@github.com:brianoh1979/circleci-demo-macos.git  .
           shell: powershell.exe
 #      - shallow-checkout:
 #          windows: true
