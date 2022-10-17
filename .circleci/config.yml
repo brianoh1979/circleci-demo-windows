@@ -12,16 +12,12 @@ jobs:
       name: win/vs2019
       shell: powershell.exe
     steps:
-      - git-shallow-clone/checkout:
-         fetch_depth: 1
-         windows: true
    #   - checkout
       - run:
           name: Checkout code (Windows)
           command: |
-            ssh-keyscan -H github.com >> C:\users\circleci\.ssh\known_hosts
             git clone --depth 1 $env:CIRCLE_REPOSITORY_URL .
-          shell: bash.exe
+            windows: true
       - run: $env:brian
       - restore_cache:
           keys:
