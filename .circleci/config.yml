@@ -82,7 +82,9 @@ jobs:
     resource_class: brianoh1979/brian-winrunner
     steps:
       - checkout
-      - run: ssh-keyscan -H github.com >> ~/.ssh/known_hosts
+      - run: 
+         command: ssh-keyscan -H github.com >> ~/.ssh/known_hosts
+         shell: powershell.exe
       - shallow-checkout:
           windows: true
       - run: 
