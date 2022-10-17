@@ -11,12 +11,14 @@ jobs:
       name: win/vs2019
       shell: powershell.exe
     steps:
+      - shallow-checkout:
+          windows: true
    #   - checkout
-      - run:
-          name: Checkout code (Windows)
-          command: |
-            ssh-keyscan -H github.com >> ~/.ssh/known_hosts 
-            git clone --depth 1 $env:CIRCLE_REPOSITORY_URL .
+   #   - run:
+   #       name: Checkout code (Windows)
+   #       command: |
+   #         ssh-keyscan -H github.com >> ~/.ssh/known_hosts 
+   #         git clone --depth 1 $env:CIRCLE_REPOSITORY_URL .
       - run: $env:brian
       - restore_cache:
           keys:
