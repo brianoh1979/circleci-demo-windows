@@ -11,6 +11,8 @@ jobs:
     resource_class: brianoh1979/brian-winrunner
     steps:
       - checkout
+      - run: docker build -t dotnetapp .
+      - run: docker ps -a 
       - run: 
           name: "Docker daemon test"
           shell: powershell.exe
