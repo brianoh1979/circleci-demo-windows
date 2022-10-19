@@ -11,8 +11,16 @@ jobs:
     resource_class: brianoh1979/brian-winrunner
     steps:
       - checkout
-      - run: docker build -t dotnetapp .
-      - run: docker ps -a 
+      - run: 
+          name: "Docker image build and tag"
+          shell: powershell.exe
+          command: |
+            docker build -t dotnetapp .
+      - run: 
+          name: "Check Docker image listing"
+          shell: powershell.exe
+          command: |
+            docker ps -a 
       - run: 
           name: "Docker daemon test"
           shell: powershell.exe
