@@ -5,77 +5,6 @@ version: 2.1
 orbs:
   win: circleci/windows@1.0.0
 
-commands:
-  shallow-checkout:
-    description: checkout by git shallow clone
-    parameters:
-      depth:
-        default: 1
-        description: 'Limit fetch depth to the specified number of commit from a remote
-          branch history. Refer git fetch documentation for more information.
-          '
-        type: integer
-      fetch_depth:
-        default: 10
-        description: 'Addtional fetch depth to the specified number of commit from
-          a remote branch history. Pass more number then depth when you want to check
-          futher commit history.
-          '
-        type: integer
-      windows:
-        default: false
-        description: change the behavior if windows is flagged
-        type: boolean
-    steps:
-      - when:
-          condition: << parameters.windows >>
-          steps:
-            - run:
-                name: Checkout code (windows)
-                command: "mkdir $HOME/.ssh -ea 0\necho 'github.com ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAq2A7hRGmdnm9tUDbO9IDSwBK6TbQa+PXYPCPy6rbTrTtw7PHkccKrpp0yVhp5HdEIcKr6pLlVDBfOLX9QUsyCOV0wzfjIJNlGEYsdlLJizHhbn2mUjvSAHQqZETYP81eFzLQNnPHt4EVVUh7VfDESU84KezmD5QlWpXLmvU31/yMf+Se8xhHTvKSCZIFImWwoG6mbUoWf9nzpIoaSjB+weqqUUmpaaasXVal72J+UX2B+2RPW3RcT0eOzQgqlJL3RKrTJvdsjE3JEAvGq3lGHSZXy28G3skua2SmVi/w4yCE6gbODqnTWlg7+wC604ydGXA8VJiS5ap43JXiUFFAaQ==\n\
-                  github.com ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBEmKSENjQEezOmxkZMy7opKgwFB9nkt5YRrYMjNuG5N87uRgg6CLrbo5wAdT/y6v0mKV0U2w0WZ2YB/++Tpockg=\n\
-                  github.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl\n\
-                  ' >> $HOME/.ssh/known_hosts\n\n# checkout\ngit clone --depth <<\
-                  \ parameters.depth >> $env:CIRCLE_REPOSITORY_URL .\n\n# Fetch remote\
-                  \ and check the commit ID of the checked out code\nif (Test-Path\
-                  \ env:CIRCLE_TAG)\n{\n  # tag\n  git fetch --tags --depth << parameters.fetch_depth\
-                  \ >> --force origin \"+refs/tags/$env:CIRCLE_TAG:refs/tags/$env:CIRCLE_TAG\"\
-                  \n}\nelseif (\"$env:CIRCLE_BRANCH\" -match \"^pull\\/[0-9]+$\")\n\
-                  {\n  # pull request\n  git fetch --no-tags --depth << parameters.fetch_depth\
-                  \ >> --force origin \"$env:CIRCLE_BRANCH/head:remotes/origin/$env:CIRCLE_BRANCH\"\
-                  \n}\nelse\n{\n  # others\n  git fetch --no-tags --depth=<< parameters.fetch_depth\
-                  \ >> --force origin \"$env:CIRCLE_BRANCH:remotes/origin/$env:CIRCLE_BRANCH\"\
-                  \n}\n\n# Check the commit ID of the checked out code\nif (Test-Path\
-                  \ env:CIRCLE_TAG)\n{\n  git reset --hard \"$env:CIRCLE_SHA1\"\n\
-                  \  git checkout -q \"$env:CIRCLE_TAG\"\n}\nelseif ((Test-Path env:CIRCLE_BRANCH)\
-                  \ -and (\"$env:CIRCLE_BRANCH\" -ne \"HEAD\"))\n{\n  git reset --hard\
-                  \ \"$env:CIRCLE_SHA1\"\n  git checkout -q -B \"$env:CIRCLE_BRANCH\"\
-                  \n}\n\ngit reset --hard \"$env:CIRCLE_SHA1\"\n"
-      - unless:
-          condition: << parameters.windows >>
-          steps:
-            - run:
-                name: Checkout code (non-windows)
-                command: "mkdir -p ~/.ssh\necho 'github.com ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAq2A7hRGmdnm9tUDbO9IDSwBK6TbQa+PXYPCPy6rbTrTtw7PHkccKrpp0yVhp5HdEIcKr6pLlVDBfOLX9QUsyCOV0wzfjIJNlGEYsdlLJizHhbn2mUjvSAHQqZETYP81eFzLQNnPHt4EVVUh7VfDESU84KezmD5QlWpXLmvU31/yMf+Se8xhHTvKSCZIFImWwoG6mbUoWf9nzpIoaSjB+weqqUUmpaaasXVal72J+UX2B+2RPW3RcT0eOzQgqlJL3RKrTJvdsjE3JEAvGq3lGHSZXy28G3skua2SmVi/w4yCE6gbODqnTWlg7+wC604ydGXA8VJiS5ap43JXiUFFAaQ==\n\
-                  github.com ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBEmKSENjQEezOmxkZMy7opKgwFB9nkt5YRrYMjNuG5N87uRgg6CLrbo5wAdT/y6v0mKV0U2w0WZ2YB/++Tpockg=\n\
-                  github.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl\n\
-                  ' >> ~/.ssh/known_hosts\n\n# checkout\ngit clone --depth << parameters.depth\
-                  \ >> $CIRCLE_REPOSITORY_URL .\n\n# Fetch remote and check the commit\
-                  \ ID of the checked out code\nif [ -n \"$CIRCLE_TAG\" ]\nthen\n\
-                  \  # tag\n  git fetch --tags --depth << parameters.fetch_depth >>\
-                  \ --force origin \"+refs/tags/${CIRCLE_TAG}:refs/tags/${CIRCLE_TAG}\"\
-                  \nelif [[ $(echo $CIRCLE_BRANCH | grep -E ^pull\\/[0-9]+$) ]] #\
-                  \ sh version of bash `elif [[ \"$CIRCLE_BRANCH\" =~ ^pull\\/[0-9]+$\
-                  \  ]]`\nthen\n  # pull request\n  git fetch --no-tags --depth <<\
-                  \ parameters.fetch_depth >> --force origin \"${CIRCLE_BRANCH}/head:remotes/origin/${CIRCLE_BRANCH}\"\
-                  \nelse\n  # others\n  git fetch --no-tags --depth=<< parameters.fetch_depth\
-                  \ >> --force origin \"$CIRCLE_BRANCH:remotes/origin/$CIRCLE_BRANCH\"\
-                  \nfi\n\n# Check the commit ID of the checked out code\nif [ -n \"\
-                  $CIRCLE_TAG\" ]\nthen\n  git reset --hard \"$CIRCLE_SHA1\"\n  git\
-                  \ checkout -q \"$CIRCLE_TAG\"\nelif [ -n \"$CIRCLE_BRANCH\" ] &&\
-                  \ [ \"$CIRCLE_BRANCH\" != 'HEAD' ]\nthen\n  git reset --hard \"\
-                  $CIRCLE_SHA1\"\n  git checkout -q -B \"$CIRCLE_BRANCH\"\nfi\n\n\
-                  git reset --hard \"$CIRCLE_SHA1\"\n"
 jobs:
   build:
     executor:
@@ -83,10 +12,12 @@ jobs:
       shell: powershell.exe
     steps:
       - checkout
-      - run: systeminfo
-      - run: ssh-keyscan -H github.com >> ~/.ssh/known_hosts
-      - shallow-checkout:
-          windows: true
+      - run: 
+          name: "Start docker daemon"
+          shell: powershell.exe
+          command: |
+            dockerd.exe
+          background: true      
       - restore_cache:
           keys:
             - dotnet-packages-v1-{{ checksum "circleci-demo-windows.csproj" }}
