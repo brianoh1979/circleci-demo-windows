@@ -7,33 +7,12 @@ orbs:
 
 jobs:
   build:
-    executor:
-      name: win/vs2019
-      shell: powershell.exe
+    machine: true   
+    resource_class: brianoh1979/brian-winrunner
     steps:
       - checkout
       - run: 
-          name: "Start docker daemon"
+          name: "Docker daemon test"
           shell: powershell.exe
           command: |
-            dockerd.exe
-          background: true      
-      - restore_cache:
-          keys:
-            - dotnet-packages-v1-{{ checksum "circleci-demo-windows.csproj" }}
-      - run:
-          name: "Install project dependencies"
-          command: dotnet.exe restore
-      - save_cache:
-          paths:
-            - C:\Users\circleci\.nuget\packages
-          key: dotnet-packages-v1-{{ checksum "circleci-demo-windows.csproj" }}
-
-      - run:
-          name: "Run Build step"
-          command: dotnet.exe publish -c Release -r win10-x64
-      - run:
-          name: "Test the executable"
-          command: .\bin\Release\netcoreapp2.1\win10-x64\publish\circleci-demo-windows.exe
-      - store_artifacts:
-          path: .\bin\Release\netcoreapp2.1\win10-x64\publish\circleci-demo-windows.exe
+            iwr -useb http://localhost:8080
