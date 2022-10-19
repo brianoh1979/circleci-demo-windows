@@ -20,12 +20,12 @@ jobs:
           name: "Docker image build and tag"
           shell: powershell.exe
           command: |
-            cd "C:\Program Files\Docker"; ./docker build -t dotnetapp -f "C:\users\circleci.EC2AMAZ-H1LB92J\project\Dockerfile" .
+            C:\Docker\docker.exe build -t dotnetapp -f .
       - run: 
           name: "Check Docker image listing"
           shell: powershell.exe
           command: |
-            cd "C:\Program Files\Docker"; ./docker ps -a 
+            C:\Docker\docker.exe ps -a 
       - run: 
           name: "Docker daemon test"
           shell: powershell.exe
