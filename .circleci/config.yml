@@ -12,11 +12,6 @@ jobs:
     steps:
       - checkout
       - run: 
-          name: "See where we are"
-          shell: powershell
-          command: |
-            dir
-      - run: 
           name: "Docker image build and tag"
           shell: powershell.exe
           command: |
@@ -25,7 +20,7 @@ jobs:
           name: "Run Docker app"
           shell: powershell.exe
           command: |
-            C:\Docker\docker.exe run -p 8080:8080 mcr.microsoft.com/dotnet/core/samples:aspnetapp
+            C:\Docker\docker.exe run -d -p 8080:8080 mcr.microsoft.com/dotnet/core/samples:aspnetapp
       - run: 
           name: "Check Docker image listing"
           shell: powershell.exe
