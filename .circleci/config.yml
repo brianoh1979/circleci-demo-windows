@@ -35,4 +35,4 @@ jobs:
           name: "Docker daemon test"
           shell: powershell.exe
           command: |
-            iwr -useb http://localhost:8080
+            C:\Docker\docker.exe port test 8080/tcp
