@@ -12,6 +12,11 @@ jobs:
     steps:
       - checkout
       - run: 
+          name: "See where we are"
+          shell: powershell
+          command: |
+            dir
+      - run: 
           name: "Docker image build and tag"
           shell: powershell.exe
           command: |
