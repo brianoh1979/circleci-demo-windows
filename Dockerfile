@@ -1,16 +1,13 @@
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build-env
-WORKDIR /App
+FROM microsoft/windowsservercore:latest
+MAINTAINER Matt Bentley <mbentley@mbentley.net>
 
-# Copy everything
-COPY . ./
-# Restore as distinct layers
-RUN dotnet restore
-# Build and publish a release
-RUN dotnet publish -c Release -o out
+RUN mkdir c:\build\nginx\source &&\
+  powershell -Command "wget -uri 'http://nginx.org/download/nginx-1.9.3.zip' -OutFile 'c:\nginx-1.9.3.zip'" &&\
+  powershell -Command "Expand-Archive -Path C:\nginx-1.9.3.zip -DestinationPath C:\nginx -Force" &&\
+  del c:\nginx-1.9.3.zip
 
-# Build runtime image
-FROM mcr.microsoft.com/dotnet/aspnet:6.0
-WORKDIR /App
-COPY --from=build-env /App/out .
-ENTRYPOINT ["dotnet", "DotNet.Docker.dll"]
+COPY ./html /nginx/nginx-1.9.3/html/
 
+WORKDIR /nginx/nginx-1.9.3
+EXPOSE 8080
+ENTRYPOINT ["nginx.exe"]

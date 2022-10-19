@@ -20,12 +20,12 @@ jobs:
           name: "Docker image build and tag"
           shell: powershell.exe
           command: |
-            C:\Docker\docker.exe build -t dotnetapp .
+            C:\Docker\docker.exe build -t nginx .
       - run:
           name: "Run Docker app"
           shell: powershell.exe
           command: |
-            C:\Docker\docker.exe run --publish 8080:8080 dotnetapp
+            C:\Docker\docker.exe run --publish 8080:8080 nginx
       - run: 
           name: "Check Docker image listing"
           shell: powershell.exe
