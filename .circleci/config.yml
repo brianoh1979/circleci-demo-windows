@@ -25,14 +25,14 @@ jobs:
           name: "Run Docker app"
           shell: powershell.exe
           command: |
-            C:\Docker\docker.exe run -d -p 8080:8080 mcr.microsoft.com/dotnet/core/samples:aspnetapp
+            C:\Docker\docker.exe run -p 8080:8080 mcr.microsoft.com/dotnet/core/samples:aspnetapp
       - run: 
           name: "Check Docker image listing"
           shell: powershell.exe
           command: |
             C:\Docker\docker.exe ps -a 
-      - run: 
-          name: "Docker daemon test"
-          shell: powershell.exe
-          command: |
-            C:\Docker\docker.exe port test 8080/tcp
+#      - run: 
+#          name: "Docker daemon test"
+#          shell: powershell.exe
+#          command: |
+#            C:\Docker\docker.exe port test 8080/tcp
