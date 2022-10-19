@@ -21,6 +21,11 @@ jobs:
           shell: powershell.exe
           command: |
             C:\Docker\docker.exe build -t dotnetapp .
+      - run:
+          name: "Run Docker app"
+          shell: powershell.exe
+          command: |
+            C:\Docker\docker.exe run dotnetapp
       - run: 
           name: "Check Docker image listing"
           shell: powershell.exe
