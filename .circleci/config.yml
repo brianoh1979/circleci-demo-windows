@@ -21,14 +21,14 @@ jobs:
           name: "Run Docker app"
           shell: powershell.exe
           command: |
-            docker run -d -p 8080:8080 mcr.microsoft.com/dotnet/core/samples:aspnetapp
+            docker run -d -p 8080:8080 --name my-app mcr.microsoft.com/dotnet/core/samples:aspnetapp
       - run: 
           name: "Check Docker image listing"
           shell: powershell.exe
           command: |
             docker ps -a 
-#      - run: 
-#          name: "Docker daemon test"
-#          shell: powershell.exe
-#          command: |
-#            C:\Docker\docker.exe port test 8080/tcp
+      - run: 
+          name: "Docker container test"
+          shell: powershell.exe
+          command: |
+            docker exec my-app curl --retry 10 --retry-connrefused http://localhost:8080
