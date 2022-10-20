@@ -7,25 +7,27 @@ orbs:
 
 jobs:
   build:
-    machine: true   
-    resource_class: brianoh1979/brian-winrunner
+    executor:
+      name: win/vs2019
+      shell: powershell.exe
     steps:
       - checkout
       - run: 
           name: "Docker image build and tag"
           shell: powershell.exe
           command: |
-            C:\Docker\docker.exe build .
+            docker build .
       - run:
           name: "Run Docker app"
           shell: powershell.exe
           command: |
-            C:\Docker\docker.exe run -d -p 8080:8080 mcr.microsoft.com/dotnet/core/samples:aspnetapp
+            docker run -d -p 8080:8080 
+mcr.microsoft.com/dotnet/core/samples:aspnetapp
       - run: 
           name: "Check Docker image listing"
           shell: powershell.exe
           command: |
-            C:\Docker\docker.exe ps -a 
+            docker ps -a 
 #      - run: 
 #          name: "Docker daemon test"
 #          shell: powershell.exe
