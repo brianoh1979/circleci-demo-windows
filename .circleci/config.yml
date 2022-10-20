@@ -28,19 +28,10 @@ jobs:
           command: |
             docker ps -a 
       - run:
-          name: "Get container NAT IP"
+          name: "Get container NAT IP and run test curl command against container"
           shell: powershell.exe
           command: |
             $entrance = docker inspect --format '{{ .NetworkSettings.Networks.nat.IPAddress }}' my-app
             echo $entrance
             Remove-item alias:curl
-            curl --url http://${entrance}:8080
             curl --url http://${entrance}:80
-  #    - run: 
-  #        name: "Docker container test"
-  #        shell: powershell.exe
-  #        command: |
-  #          echo $entrance
-  #          Remove-item alias:curl
-  #          curl --url http://${entrance}:8080
-  #          curl --url http://${entrance}:80
