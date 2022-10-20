@@ -33,11 +33,14 @@ jobs:
           command: |
             $entrance = docker inspect --format '{{ .NetworkSettings.Networks.nat.IPAddress }}' my-app
             echo $entrance
-      - run: 
-          name: "Docker container test"
-          shell: powershell.exe
-          command: |
-            echo $entrance
             Remove-item alias:curl
             curl --url http://${entrance}:8080
             curl --url http://${entrance}:80
+  #    - run: 
+  #        name: "Docker container test"
+  #        shell: powershell.exe
+  #        command: |
+  #          echo $entrance
+  #          Remove-item alias:curl
+  #          curl --url http://${entrance}:8080
+  #          curl --url http://${entrance}:80
