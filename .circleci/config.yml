@@ -21,12 +21,7 @@ jobs:
           name: "Run Docker app"
           shell: powershell.exe
           command: |
-            docker run -d -p 8080:8080 --name my-app mcr.microsoft.com/dotnet/core/samples:aspnetapp
-      - run: 
-          name: "Check Docker image listing"
-          shell: powershell.exe
-          command: |
-            docker ps -a 
+            docker run -d -p 80:80 --name my-app mcr.microsoft.com/dotnet/core/samples:aspnetapp
       - run:
           name: "Get container NAT IP and run test curl command against container"
           shell: powershell.exe
