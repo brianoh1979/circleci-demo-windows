@@ -27,8 +27,13 @@ jobs:
           shell: powershell.exe
           command: |
             docker ps -a 
+      - run:
+          name: "Check Docker image listing"
+          shell: powershell.exe
+          command: |
+            $entrance = docker inspect --format '{{ .NetworkSettings.Networks.nat.IPAddress }}'
       - run: 
           name: "Docker container test"
           shell: powershell.exe
           command: |
-            docker exec my-app curl --retry 10 --retry-connrefused http://localhost:8080
+            docker exec my-app curl --retry 10 --retry-connrefused http://$entrance:8080
