@@ -31,9 +31,11 @@ jobs:
           name: "Check Docker image listing"
           shell: powershell.exe
           command: |
-            $entrance = docker inspect --format '{{ .NetworkSettings.Networks.nat.IPAddress }}'
+            $entrance = docker inspect --format '{{ .NetworkSettings.Networks.nat.IPAddress }}' my-app
+            echo $entrance
       - run: 
           name: "Docker container test"
           shell: powershell.exe
           command: |
-            docker exec my-app curl --retry 10 --retry-connrefused http://$entrance:8080
+            docker exec my-app curl --retry 2 --retry-connrefused http://$entrance:8080
+            docker exec my-app curl --retry 2 --retry-connrefused http://$entrance:80
