@@ -28,7 +28,7 @@ jobs:
           command: |
             docker ps -a 
       - run:
-          name: "Check Docker image listing"
+          name: "Get container NAT IP"
           shell: powershell.exe
           command: |
             $entrance = docker inspect --format '{{ .NetworkSettings.Networks.nat.IPAddress }}' my-app
@@ -37,6 +37,7 @@ jobs:
           name: "Docker container test"
           shell: powershell.exe
           command: |
+            echo $entrance
             Remove-item alias:curl
-            docker exec my-app curl --retry 2 --retry-connrefused --url http://${entrance}:8080
-            docker exec my-app curl --retry 2 --retry-connrefused --url http://${entrance}:80
+            curl --url http://${entrance}:8080
+            curl --url http://${entrance}:80
