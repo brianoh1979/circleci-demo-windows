@@ -7,26 +7,14 @@ orbs:
 
 jobs:
   build:
-    executor:
-      name: win/vs2019
-      shell: powershell.exe
+    docker:
+      - image: mcr.microsoft.com/windows/nanoserver:1809
+      - image: nginx/nginx:latest
     steps:
       - checkout
-      - run: 
-          name: "Docker image build and tag"
-          shell: powershell.exe
-          command: |
-            docker build .
-      - run:
-          name: "Run Docker app"
-          shell: powershell.exe
-          command: |
-            docker run -d -p 80:80 --name my-app mcr.microsoft.com/dotnet/core/samples:aspnetapp
       - run:
           name: "Get container NAT IP and run test curl command against container"
           shell: powershell.exe
           command: |
-            $entrance = docker inspect --format '{{ .NetworkSettings.Networks.nat.IPAddress }}' my-app
-            echo $entrance
             Remove-item alias:curl
-            curl --url http://${entrance}:80
+            curl --url http://${entrance}:8080
