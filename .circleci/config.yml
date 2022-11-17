@@ -84,7 +84,7 @@ jobs:
     steps:
       - checkout
 #      - run: systeminfo
-      - run: ssh-keyscan -H github.com >> ~/.ssh/known_hosts
+#      - run: ssh-keyscan -H github.com >> ~/.ssh/known_hosts
 #      - shallow-checkout:
 #          windows: true
       - run: git clone --depth 5 "$CIRCLE_REPOSITORY_URL" --branch "$CIRCLE_BRANCH"
