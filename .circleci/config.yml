@@ -87,7 +87,7 @@ jobs:
       - run: ssh-keyscan -H github.com >> ~/.ssh/known_hosts
 #      - shallow-checkout:
 #          windows: true
-      git clone --depth 5 "$CIRCLE_REPOSITORY_URL" --branch "$CIRCLE_BRANCH"
+      - run: git clone --depth 5 "$CIRCLE_REPOSITORY_URL" --branch "$CIRCLE_BRANCH"
       - restore_cache:
           keys:
             - dotnet-packages-v1-{{ checksum "circleci-demo-windows.csproj" }}
