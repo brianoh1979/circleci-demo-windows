@@ -3,7 +3,7 @@ version: 2.1
 #Comment
 
 orbs:
-  win: circleci/windows@1.0.0
+  win: circleci/windows@5.0
 
 commands:
   shallow-checkout:
