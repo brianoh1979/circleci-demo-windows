@@ -83,7 +83,7 @@ jobs:
       shell: powershell.exe
     steps:
       - checkout
-      - run: systeminfo
+#      - run: systeminfo
       - run: ssh-keyscan -H github.com >> ~/.ssh/known_hosts
 #      - shallow-checkout:
 #          windows: true
