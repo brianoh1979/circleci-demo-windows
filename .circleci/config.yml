@@ -80,7 +80,6 @@ jobs:
   build:
     executor:
       name: win/default
-      shell: powershell.exe
     steps:
       - checkout
 #      - run: systeminfo
