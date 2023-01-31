@@ -7,8 +7,10 @@ orbs:
 
 jobs:
   build:
-    executor:
-      name: win/server-2022:2022.08.1
+    machine:
+      image: 'windows-server-2022-gui:2022.08.1'
+      resource_class: windows.medium
+      shell: powershell.exe -ExecutionPolicy Bypass
     steps:
       - checkout
       - run: $PSVersionTable
