@@ -79,9 +79,11 @@ commands:
 jobs:
   build:
     executor:
-      name: win/default
+      name: win/server-2022:2022.08.1
     steps:
       - checkout
+      - run: $PSVersionTable
+      - run: "C:\WINDOWS\system32\choco"
 #      - run: systeminfo
 #      - run: ssh-keyscan -H github.com >> ~/.ssh/known_hosts
 #      - shallow-checkout:
